@@ -286,10 +286,9 @@ static int tianma_unprepare(struct drm_panel *panel)
 	if (!ctx->prepared)
 		return 0;
 
-	if (esd_flag == true) {
+	nvt_ts_tp_suspend();
+	if (esd_flag == true)
 		pr_info("%s, Now esd_flag = %d\n", __func__, esd_flag);
-		nvt_ts_tp_suspend();
-	}
 
 	/* BSP.lcm - 2020.11.12 - pull down pwm pin */
 	ctx->pwm =
@@ -378,10 +377,9 @@ static int tianma_prepare(struct drm_panel *panel)
 	// shifan@bsp.tp 20191226 add for loading tp fw when screen lighting on
 	lcd_queue_load_tp_fw();
 #endif
-	if (esd_flag == true) {
+	nvt_ts_tp_resume();
+	if (esd_flag == true)
 		pr_info("%s, Now esd_flag = %d\n", __func__, esd_flag);
-		nvt_ts_tp_resume();
-	}
 
 	pr_info("%s-\n", __func__);
 	return ret;
